@@ -195,20 +195,21 @@ public class GuiScommesse extends JFrame {
                     puntateNuoto += scommessa.puntata;
                 else
                     puntateCiclismo += scommessa.puntata;
-
             }
+
             String[] sport = { "Puntate Calcio: " + puntateCalcio, "Puntate Basket: " + puntateBasket,
                     "Puntate Atletica: " + puntateAtletica, "Puntate Nuoto: " + puntateNuoto,
                     "Puntate Ciclismo: " + puntateCiclismo };
-            for (int i = 0; i < 4; i++) {
-                jlbEtichette[i] = new JLabel();
-                jlbEtichette[i].setText(sport[i]);
-                System.out.println(jlbEtichette[i].getText());
-                jpCentrale.add(jlbEtichette[i]);
+
+            jpCentrale.removeAll();
+            for (int i = 0; i < sport.length; i++) {
+                JLabel label = new JLabel(sport[i]);
+                label.setFont(new Font("Futura", Font.BOLD, 18));
+                label.setHorizontalAlignment(JLabel.CENTER);
+                jpCentrale.add(label);
             }
             jpCentrale.revalidate();
             jpCentrale.repaint();
-
         }
     }
 
