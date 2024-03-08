@@ -115,6 +115,7 @@ public class Cliente {
 
     /**
      * Utilizzato per il controllo del cliente tramite il JcomBox
+     * 
      * @return
      */
     public String ritornaNomeCompleto() {
@@ -131,21 +132,37 @@ public class Cliente {
      *
      * @param tipoScommessa
      */
-    public void AggiungiScommessa(String tipoScommessa, String data, double puntataCliente, String squadraUno, String squadraDue,
-    String risultatoPrevisto) {
+    public void AggiungiScommessa(String tipoScommessa, String data, double puntataCliente, String squadraUno,
+            String squadraDue,
+            String risultatoPrevisto) {
         Scommessa scommessa = null;
         if (tipoScommessa == "Calcio")
             scommessa = new Calcio(data, puntataCliente, squadraUno, squadraDue, risultatoPrevisto);
-     /**   else if (tipoScommessa == "Atletica")
-            scommessa = new Atletica();
-        else if (tipoScommessa == "Nuoto")
-            scommessa = new Nuoto();
-        else if (tipoScommessa == "Ciclismo")
-            scommessa = new Ciclismo();*/
+        /**
+         * else if (tipoScommessa == "Atletica")
+         * scommessa = new Atletica();
+         * else if (tipoScommessa == "Nuoto")
+         * scommessa = new Nuoto();
+         * else if (tipoScommessa == "Ciclismo")
+         * scommessa = new Ciclismo();
+         */
         else
             scommessa = new Basket(data, puntataCliente, squadraUno, squadraDue, risultatoPrevisto);
 
         listaScommesse.add(scommessa);
-        setScommesseEffettuate(scommesseEffettuate+1);
+        setScommesseEffettuate(scommesseEffettuate + 1);
+    }
+
+    /**
+     * Ritorna la vincita totale di tutte le scommesse effettuate
+     * 
+     * @return
+     */
+    public double ritornaVincita() {
+        double totale = 0;
+        for (Scommessa scommessa : listaScommesse) {
+            totale += scommessa.vincita;
+        }
+        return totale;
     }
 }

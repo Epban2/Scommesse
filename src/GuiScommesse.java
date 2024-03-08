@@ -1,3 +1,4 @@
+import javax.accessibility.AccessibleIcon;
 import javax.swing.*;
 
 import org.w3c.dom.views.DocumentView;
@@ -21,6 +22,7 @@ public class GuiScommesse extends JFrame {
     public JButton jbUltimaScommessa;
     private JButton jbPuntateCliente;
     public JButton jbPuntatePerSport;
+    public JButton jbPiuVincente;
 
     public GuiScommesse(GestioneClienti gestioneClienti) {
         this.setSize(800, 800);
@@ -87,6 +89,13 @@ public class GuiScommesse extends JFrame {
          * jpBottoniLaterali.add(jbPuntatePerSport);
          * jbPuntatePerSport.addActionListener(new AscoltaPuntatePerTipologia());
          */
+        jbPiuVincente = new JButton(); // bottone 4
+        jbPiuVincente.setText("Cliente piu' vincente");
+        jbPiuVincente.setFocusPainted(false);
+        jbPiuVincente.setContentAreaFilled(false);
+        jbPiuVincente.setBorderPainted(false);
+        jpBottoniLaterali.add(jbPiuVincente);
+        jbPiuVincente.addActionListener(new AscoltaPiuVincente());
         // testo centrale (risultato dei bottoni laterali es. ultima scommessa)
         jpCentrale = new JPanel(new GridLayout(5, 0));
 
@@ -218,5 +227,27 @@ public class GuiScommesse extends JFrame {
      *           }
      *           }
      */
+
+    /**
+     * Il cliente che ha vinto più soldi
+     * 
+     */
+    class AscoltaPiuVincente implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Cliente clientePiuVincente = gestioneClienti.clienti.get(0);
+            for (Cliente clienteIndice : gestioneClienti.clienti) {
+                if (clienteIndice.ritornaVincita() > clientePiuVincente.ritornaVincita())
+                    clientePiuVincente = clienteIndice;
+            }
+            if (clientePiuVincente.ritornaVincita() == 0)
+                jlbTestoCentrale.setText("Nessun cliente ha vinto!");
+            else {
+                Double vincitaArrotondata = Math.round((clientePiuVincente.ritornaVincita()) * 100.0) / 100.0;
+                jlbTestoCentrale.setText("Cliente piu' vincente: " + clientePiuVincente.ritornaNomeCompleto() + " ("
+                        + Double.toString(vincitaArrotondata) + "$)");
+            }
+        }
+    }
 
 }
