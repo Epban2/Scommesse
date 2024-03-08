@@ -78,14 +78,15 @@ public class GuiScommesse extends JFrame {
         jpBottoniLaterali.add(jbPuntateCliente);
         jbPuntateCliente.addActionListener(new AscoltaPuntateCliente());
 
-        jbPuntatePerSport = new JButton(); // bottone 3
-        jbPuntatePerSport.setText("Puntate per sport");
-        jbPuntatePerSport.setFocusPainted(false);
-        jbPuntatePerSport.setContentAreaFilled(false);
-        jbPuntatePerSport.setBorderPainted(false);
-        jpBottoniLaterali.add(jbPuntatePerSport);
-        jbPuntatePerSport.addActionListener(new AscoltaPuntatePerTipologia());
-
+        /**
+         * jbPuntatePerSport = new JButton(); // bottone 3
+         * jbPuntatePerSport.setText("Puntate per sport");
+         * jbPuntatePerSport.setFocusPainted(false);
+         * jbPuntatePerSport.setContentAreaFilled(false);
+         * jbPuntatePerSport.setBorderPainted(false);
+         * jpBottoniLaterali.add(jbPuntatePerSport);
+         * jbPuntatePerSport.addActionListener(new AscoltaPuntatePerTipologia());
+         */
         // testo centrale (risultato dei bottoni laterali es. ultima scommessa)
         jpCentrale = new JPanel(new GridLayout(5, 0));
 
@@ -172,45 +173,50 @@ public class GuiScommesse extends JFrame {
     }
 
     /**
+     * TODO: METTI A POSTO
      * Puntata per ciascuna tipologia di sport
+     *
+     * class AscoltaPuntatePerTipologia implements ActionListener {
+     * 
+     * @Override
+     *           public void actionPerformed(ActionEvent e) {
+     *           Cliente cliente = ritornaCliente();
+     *           Double puntateCalcio = 0.0;
+     *           Double puntateBasket = 0.0;
+     *           Double puntateNuoto = 0.0;
+     *           Double puntateAtletica = 0.0;
+     *           Double puntateCiclismo = 0.0;
+     * 
+     *           for (Scommessa scommessa : cliente.listaScommesse) {
+     *           if (scommessa instanceof Calcio)
+     *           puntateCalcio += scommessa.puntata;
+     *           else if (scommessa instanceof Basket)
+     *           puntateBasket += scommessa.puntata;
+     *           else if (scommessa instanceof Atletica)
+     *           puntateAtletica += scommessa.puntata;
+     *           else if (scommessa instanceof Nuoto)
+     *           puntateNuoto += scommessa.puntata;
+     *           else
+     *           puntateCiclismo += scommessa.puntata;
+     *           }
+     * 
+     *           String[] sport = { "Puntate Calcio: " + puntateCalcio, "Puntate
+     *           Basket: " + puntateBasket,
+     *           "Puntate Atletica: " + puntateAtletica, "Puntate Nuoto: " +
+     *           puntateNuoto,
+     *           "Puntate Ciclismo: " + puntateCiclismo };
+     * 
+     *           jpCentrale.removeAll();
+     *           for (int i = 0; i < sport.length; i++) {
+     *           JLabel label = new JLabel(sport[i]);
+     *           label.setFont(new Font("Futura", Font.BOLD, 18));
+     *           label.setHorizontalAlignment(JLabel.CENTER);
+     *           jpCentrale.add(label);
+     *           }
+     *           jpCentrale.revalidate();
+     *           jpCentrale.repaint();
+     *           }
+     *           }
      */
-    class AscoltaPuntatePerTipologia implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Cliente cliente = ritornaCliente();
-            Double puntateCalcio = 0.0;
-            Double puntateBasket = 0.0;
-            Double puntateNuoto = 0.0;
-            Double puntateAtletica = 0.0;
-            Double puntateCiclismo = 0.0;
-
-            for (Scommessa scommessa : cliente.listaScommesse) {
-                if (scommessa instanceof Calcio)
-                    puntateCalcio += scommessa.puntata;
-                else if (scommessa instanceof Basket)
-                    puntateBasket += scommessa.puntata;
-                else if (scommessa instanceof Atletica)
-                    puntateAtletica += scommessa.puntata;
-                else if (scommessa instanceof Nuoto)
-                    puntateNuoto += scommessa.puntata;
-                else
-                    puntateCiclismo += scommessa.puntata;
-            }
-
-            String[] sport = { "Puntate Calcio: " + puntateCalcio, "Puntate Basket: " + puntateBasket,
-                    "Puntate Atletica: " + puntateAtletica, "Puntate Nuoto: " + puntateNuoto,
-                    "Puntate Ciclismo: " + puntateCiclismo };
-
-            jpCentrale.removeAll();
-            for (int i = 0; i < sport.length; i++) {
-                JLabel label = new JLabel(sport[i]);
-                label.setFont(new Font("Futura", Font.BOLD, 18));
-                label.setHorizontalAlignment(JLabel.CENTER);
-                jpCentrale.add(label);
-            }
-            jpCentrale.revalidate();
-            jpCentrale.repaint();
-        }
-    }
 
 }
