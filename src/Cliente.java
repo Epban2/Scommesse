@@ -106,6 +106,7 @@ public class Cliente {
 
     /**
      * Ritorna la somma di tutte le singole puntate
+     * 
      * @return
      */
     public Double ritornaPuntataTotale() {
@@ -181,6 +182,17 @@ public class Cliente {
         setScommesseEffettuate(scommesseEffettuate + 1);
         setPuntataTotale(puntataTotale + puntata);
         setPuntataAtletica(puntataAtletica + puntata);
+    }
+
+    /**
+     * Con i parametri dei JTF crea una scommessa di tipo Ciclismo
+     */
+    public void aggiungiScommessaCiclismo(String data, double puntata, String nomeVincitore) {
+        Scommessa scommessa = new Ciclismo(data, puntata, nomeVincitore);
+        listaScommesse.add(scommessa);
+        setScommesseEffettuate(scommesseEffettuate + 1);
+        setPuntataTotale(puntataTotale + puntata);
+        setPuntataCiclismo(puntataCiclismo + puntata);
     }
 
     /**

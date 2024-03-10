@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -5,30 +6,38 @@ import java.util.concurrent.ThreadLocalRandom;
  * al traguardo
  */
 public class Ciclismo extends Scommessa {
-    private String vincitoriInOrdine;
-    //TODO: METTI A POSTO IL FATTO DI VINCITORI IN ORDINE PROBABILMENTE UTILIZZARE JCOMBO
+    // TODO: METTI A POSTO IL FATTO DI VINCITORI IN ORDINE PROBABILMENTE UTILIZZARE
+    // JCOMBO
 
-    private String[] listaAtleti = { "Pietro", "Giacomo", "Mattia", "Giuseppe", "Sandro" }; 
+    private String[] ciclisti = { "Jonas Vingegaard", "Tadej Pogacar", "Primoz Roglic", "Romain Bardet",
+            "Richard Carapaz" };
     private String nomeVincitore;
 
-    public Ciclismo(String data, double puntata, String vincitoriInOrdine, String nomeVincitore) {
+    public Ciclismo(String data, double puntata, String nomeVincitore) {
         super(data, puntata);
-        this.vincitoriInOrdine = vincitoriInOrdine;
         this.nomeVincitore = nomeVincitore;
+        effettuaScommessa();
     }
 
-    public String getVincitoriInOrdine() {
-        return vincitoriInOrdine;
+    public String[] getCiclisti() {
+        return ciclisti;
     }
 
-    public void setVincitoriInOrdine(String vincitoriInOrdine) {
-        this.vincitoriInOrdine = vincitoriInOrdine;
+    public void setCiclisti(String[] ciclisti) {
+        this.ciclisti = ciclisti;
+    }
+
+    public String getNomeVincitore() {
+        return nomeVincitore;
+    }
+
+    public void setNomeVincitore(String nomeVincitore) {
+        this.nomeVincitore = nomeVincitore;
     }
 
     @Override
     public String toString() {
-        return "Ciclismo: " + super.toString() +
-                "vincitoriInOrdine='" + vincitoriInOrdine + '\'';
+        return "Ciclismo [ciclisti=" + Arrays.toString(ciclisti) + ", nomeVincitore=" + nomeVincitore + "]";
     }
 
     /**
@@ -37,7 +46,7 @@ public class Ciclismo extends Scommessa {
     @Override
     public void effettuaScommessa() {
         int indexVinvitore = ThreadLocalRandom.current().nextInt(0, 4 + 1);
-        if (nomeVincitore.equals(listaAtleti[indexVinvitore])) { //TODO: METTERE A POSTO CON IL FATTO DEI VINCITORI IN ORDINE
+        if (nomeVincitore.equals(ciclisti[indexVinvitore])) {
             setVincita(quota * puntata);
             setVinto(true);
         }

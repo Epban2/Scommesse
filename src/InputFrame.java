@@ -35,6 +35,8 @@ public class InputFrame extends JFrame {
     public JComboBox jcbAteltiNuoto;
     // atletica
     public JComboBox jcbAtletiAtletica;
+    // ciclismo
+    public JComboBox jcbCiclisti;
 
     public InputFrame(Cliente cliente, JComboBox jComboBoxSport) {
         this.cliente = cliente;
@@ -102,11 +104,6 @@ public class InputFrame extends JFrame {
         this.setVisible(true);
 
     }
-
-    /**
-     * TODO: INTERFACCIE PER ATLETICA E CICLISMO
-     * TODO: CREARE ASCOLTATORI PER ATLETICA E CICLISMO
-     */
 
     /**
      * Metodo che scorre la lista con le stringhe di input
@@ -200,6 +197,17 @@ public class InputFrame extends JFrame {
         String[] atletiAtletica = { "Ignazio", "Filippo", "Marcello", "Fabrizio", "Pietro" };
         jcbAtletiAtletica = new JComboBox(atletiAtletica);
         jpInput.add(jcbAtletiAtletica);
+    }
+
+    /**
+     * Pannello per ciclismo
+     */
+    public void scommessaCiclismo() {
+        jpInput.add(new JLabel("Vincitore: "));
+        String[] ciclisti = { "Jonas Vingegaard", "Tadej Pogacar", "Primoz Roglic", "Romain Bardet",
+                "Richard Carapaz" };
+        jcbCiclisti = new JComboBox(ciclisti);
+        jpInput.add(jcbCiclisti);
     }
 
     /**
@@ -357,6 +365,50 @@ public class InputFrame extends JFrame {
                 jlbAlert.setForeground(Color.black);
                 jlbAlert.setText("Scommessa effettuata con successo");
                 cliente.aggiungiScommessaAtletica(data, puntata, specialita, nomeVincitore);
+
+            } else if (!stringheCorrette && puntantaCorretta) {
+                jlbAlert.setText("ALCUNI CAMPI SONO VUOTI");
+                jlbAlert.setForeground(Color.RED);
+            } else if (!puntantaCorretta && stringheCorrette) {
+                jlbAlert.setText("LA PUNTATA MINIMA è DI 1€");
+                jlbAlert.setForeground(Color.RED);
+            } else if (!puntantaCorretta && !stringheCorrette) {
+                jlbAlert.setText("CORREGGERE I CAMPI");
+                jlbAlert.setForeground(Color.RED);
+            }
+        }
+    }
+
+    /**
+     * Ascoltatore del ciclismo
+     */
+    class AscoltaCiclismo implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String data;
+            String nomeVincitore;
+            Double puntata = null;
+            try {
+                puntata = Double.parseDouble(jtfPuntata.getText());
+            } catch (Exception ignored) {
+                jlbAlert.setForeground(Color.red);
+                jlbAlert.setText("La puntata dev'essere un valore numerico!");
+            }
+
+            ArrayList<String> campi = new ArrayList<>();
+            campi.add(jtfDataScommessa.getText());
+            campi.add(jtfPuntata.getText());
+
+            boolean stringheCorrette = controllaStringhe(campi);
+            boolean puntantaCorretta = controllaPuntata(puntata);
+
+            if (stringheCorrette && puntantaCorretta) {
+                jlbAlert.setText("");
+                data = jtfDataScommessa.getText();
+                nomeVincitore = (String) jcbAtletiAtletica.getSelectedItem();
+                jlbAlert.setForeground(Color.black);
+                jlbAlert.setText("Scommessa effettuata con successo");
+                cliente.aggiungiScommessaCiclismo(data, puntata, nomeVincitore);
 
             } else if (!stringheCorrette && puntantaCorretta) {
                 jlbAlert.setText("ALCUNI CAMPI SONO VUOTI");
