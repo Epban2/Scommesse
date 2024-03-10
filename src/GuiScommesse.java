@@ -73,7 +73,7 @@ public class GuiScommesse extends JFrame {
         jpBottoniLaterali.add(jbUltimaScommessa);
 
         jbPuntateCliente = new JButton(); // bottone 2
-        jbPuntateCliente.setText("Puntate totali");
+        jbPuntateCliente.setText("Cifra totale puntata cliente");
         jbPuntateCliente.setFocusPainted(false);
         jbPuntateCliente.setContentAreaFilled(false);
         jbPuntateCliente.setBorderPainted(false);

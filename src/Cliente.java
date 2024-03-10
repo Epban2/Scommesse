@@ -123,32 +123,42 @@ public class Cliente {
     }
 
     /**
-     * L'idea è che prenda il string tipoScommessa dal jbombox con il tipo (dopo che
-     * si preme conferma)
-     * solo che non so come fare con gli input.
-     * forse devo mettere un costruttore vuoto solo per istanziare, poi passo i
-     * setter con=
-     * il secondo frame di input
-     *
+     * Crea una nuova scommessa di calcio/basket a seconda del tipo (Stringa
+     * contentente lo sport)
+     * 
      * @param tipoScommessa
+     * @param data
+     * @param puntataCliente
+     * @param squadraUno
+     * @param squadraDue
+     * @param risultatoPrevisto
      */
-    public void AggiungiScommessa(String tipoScommessa, String data, double puntataCliente, String squadraUno,
+    public void AggiungiScommessaCalcioBasket(String tipoScommessa, String data, double puntataCliente,
+            String squadraUno,
             String squadraDue,
             String risultatoPrevisto) {
         Scommessa scommessa = null;
         if (tipoScommessa == "Calcio")
             scommessa = new Calcio(data, puntataCliente, squadraUno, squadraDue, risultatoPrevisto);
-        /**
-         * else if (tipoScommessa == "Atletica")
-         * scommessa = new Atletica();
-         * else if (tipoScommessa == "Nuoto")
-         * scommessa = new Nuoto();
-         * else if (tipoScommessa == "Ciclismo")
-         * scommessa = new Ciclismo();
-         */
         else
             scommessa = new Basket(data, puntataCliente, squadraUno, squadraDue, risultatoPrevisto);
 
+        listaScommesse.add(scommessa);
+        setScommesseEffettuate(scommesseEffettuate + 1);
+    }
+
+    /**
+     * Con i parametri dei JTF crea una scommessa di tipo Nuoto
+     * 
+     * @param data
+     * @param puntataCliente
+     * @param stile
+     * @param distanza
+     * @param nomeVincitore
+     */
+    public void AggiungiScommessaNuoto(String data, double puntataCliente, String stile, Double distanza,
+            String nomeVincitore) {
+        Scommessa scommessa = new Nuoto(data, puntataCliente, stile, distanza, nomeVincitore);
         listaScommesse.add(scommessa);
         setScommesseEffettuate(scommesseEffettuate + 1);
     }

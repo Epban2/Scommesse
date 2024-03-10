@@ -5,23 +5,25 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Nuoto extends Scommessa {
     private String stile;
-    private int distanza;
+    private Double distanza;
     private String nomeVincitore;
-    private String[] listaAtleti = { "Luca", "Mario", "Matteo", "Piero", "Giorgio" };
+    String[] atletiNuoto = { "Tom Dean", "Carson Foster", "Pan Zhanle", "Ryan Murphy", " Maxime Grousset",
+            "Bobby Finke", "Sam Short" };
 
-    public Nuoto(String data, double puntata, String stile, int distanza,
+    public Nuoto(String data, double puntata, String stile, Double distanza,
             String nomeVincitore) {
         super(data, puntata);
         this.stile = stile;
         this.distanza = distanza;
         this.nomeVincitore = nomeVincitore;
+        EffettuaScommessa();
     }
 
     public String getStile() {
         return stile;
     }
 
-    public int getDistanza() {
+    public double getDistanza() {
         return distanza;
     }
 
@@ -43,8 +45,9 @@ public class Nuoto extends Scommessa {
      */
     @Override
     public void EffettuaScommessa() {
-        int indexVinvitore = ThreadLocalRandom.current().nextInt(0, 4 + 1);
-        if (nomeVincitore.equals(listaAtleti[indexVinvitore])) {
+        // genero casualmente l'indice del vincitore (locazione dell'array)
+        int indexVinvitore = ThreadLocalRandom.current().nextInt(0, 6 + 1);
+        if (nomeVincitore.equals(atletiNuoto[indexVinvitore])) {
             setVincita(quota * puntata);
             setVinto(true);
         }

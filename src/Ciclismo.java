@@ -6,7 +6,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Ciclismo extends Scommessa {
     private String vincitoriInOrdine;
-    //TODO: METTI A POSTO IL FATTO DI VINCITORI IN ORDINE
+    //TODO: METTI A POSTO IL FATTO DI VINCITORI IN ORDINE PROBABILMENTE UTILIZZARE JCOMBO
+
     private String[] listaAtleti = { "Pietro", "Giacomo", "Mattia", "Giuseppe", "Sandro" }; 
     private String nomeVincitore;
 
