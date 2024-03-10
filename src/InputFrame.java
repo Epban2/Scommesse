@@ -18,7 +18,7 @@ public class InputFrame extends JFrame {
     private JComboBox jComboBoxSport;
 
     private JLabel jlbTitolo;
-    public JLabel jlbAlert;
+    public JLabel jlbAlert; // etichetta di notifica in fondo al pannello
 
     private JPanel jpInput;
     private JButton jbConferma;
@@ -33,6 +33,8 @@ public class InputFrame extends JFrame {
     public JComboBox jcbStili;
     public JTextField jtfDistanza;
     public JComboBox jcbAteltiNuoto;
+    // atletica
+    public JComboBox jcbAtletiAtletica;
 
     public InputFrame(Cliente cliente, JComboBox jComboBoxSport) {
         this.cliente = cliente;
@@ -58,6 +60,9 @@ public class InputFrame extends JFrame {
         else if (jComboBoxSport.getSelectedItem() == "Nuoto")
             jbConferma.addActionListener(new AscoltaNuoto());/** ... altri if per ciclismo etc.. */
 
+        else if (jComboBoxSport.getSelectedItem() == "Atletica")
+            jbConferma.addActionListener(new AscoltaAtletica());
+
         jpInput = new JPanel(new GridLayout(5, 2));
         CreareGUI();
     }
@@ -74,17 +79,19 @@ public class InputFrame extends JFrame {
         jtfPuntata = new JTextField();
         jpInput.add(jtfPuntata);
 
+        // campi di input specifici per ogni disciplina
         if (jComboBoxSport.getSelectedItem() == "Calcio") {
             this.setIconImage(new ImageIcon("img/calcio.png").getImage());
-            ScommessaCalcioBasket();
+            scommessaCalcioBasket();
         } else if (jComboBoxSport.getSelectedItem() == "Basket") {
             this.setIconImage(new ImageIcon("img/basket.png").getImage());
-            ScommessaCalcioBasket();
+            scommessaCalcioBasket();
         } else if (jComboBoxSport.getSelectedItem() == "Nuoto") {
             this.setIconImage(new ImageIcon("img/nuoto.png").getImage());
-            ScommessaNuoto();
+            scommessaNuoto();
         } else if (jComboBoxSport.getSelectedItem() == "Atletica") {
             this.setIconImage(new ImageIcon("img/atletica.png").getImage());
+            scommessaAtletica();
         } else
             this.setIconImage(new ImageIcon("img/ciclismo.png").getImage());
 
@@ -102,10 +109,49 @@ public class InputFrame extends JFrame {
      */
 
     /**
+     * Metodo che scorre la lista con le stringhe di input
+     * 
+     * @param lista
+     * @return boolean
+     */
+    public boolean controllaStringhe(ArrayList<String> lista) {
+        boolean flag = true;
+        for (String str : lista) {
+            if (str.isBlank() || str.isEmpty())
+                flag = false;// controllo che tutti i campi non siano vuoti scorrendo l'array
+        }
+        return flag;
+    }
+
+    /**
+     * Controlla che il valore della puntata sia numerico e correto.
+     * Se errato modifica l'etichetta e ritorna falso.
+     * 
+     * @param puntata
+     * @return
+     */
+    public boolean controllaPuntata(Double puntata) {
+        boolean numeroCorretto = true;
+        try {
+            if (Double.parseDouble(jtfPuntata.getText()) >= 1) {
+                puntata = Double.parseDouble(jtfPuntata.getText());
+                numeroCorretto = true;
+
+            } else {
+                jlbAlert.setText("LA PUNTATA MINIMA è DI 1€");
+                numeroCorretto = false;
+            }
+        } catch (Exception ignored) {
+            numeroCorretto = false; // modifico il flag
+        }
+        return numeroCorretto;
+    }
+
+    /**
      * Predispone il pannello alla scommessa di calcio e basket
      * imposta i textfield adeguati.
      */
-    public void ScommessaCalcioBasket() {
+    public void scommessaCalcioBasket() {
         jpInput.add(new JLabel("Nome squadra uno: "));
         jtfSquadraUno = new JTextField();
         jpInput.add(jtfSquadraUno);
@@ -121,14 +167,9 @@ public class InputFrame extends JFrame {
     }
 
     /**
-     * Predispone il pannello alla scommessa di calcio e basket (solamente grafica)
-     * imposta i textfield adeguati.
-     * 
-     * campi costruttore nuoto: String data, double puntata, String stile, int
-     * distanza,
-     * String nomeVincitore
+     * Pannello per la scommessa di Nuoto
      */
-    public void ScommessaNuoto() {
+    public void scommessaNuoto() {
         jpInput.add(new JLabel("Stile: "));
         String[] stili = { "Libero", "Dorso", "Rana", "Farfalla" };
         jcbStili = new JComboBox(stili);
@@ -147,18 +188,18 @@ public class InputFrame extends JFrame {
     }
 
     /**
-     * Metodo che scorre la lista con le stringhe di input
-     * 
-     * @param lista
-     * @return boolean
+     * Pannello per atletica
      */
-    public boolean controllaStringhe(ArrayList<String> lista) {
-        boolean flag = true;
-        for (String str : lista) {
-            if (str.isBlank() || str.isEmpty())
-                flag = false;// controllo che tutti i campi non siano vuoti scorrendo l'array
-        }
-        return flag;
+    public void scommessaAtletica() {
+        jpInput.add(new JLabel("Specialita': "));
+        String[] specialita = { "Staffette", "Mezzofondo", "Ostacoli", "Lanci", "Marcia" };
+        jcbStili = new JComboBox(specialita);
+        jpInput.add(jcbStili);
+
+        jpInput.add(new JLabel("Vincitore: "));
+        String[] atletiAtletica = { "Ignazio", "Filippo", "Marcello", "Fabrizio", "Pietro" };
+        jcbAtletiAtletica = new JComboBox(atletiAtletica);
+        jpInput.add(jcbAtletiAtletica);
     }
 
     /**
@@ -173,8 +214,12 @@ public class InputFrame extends JFrame {
             String squadraDue = null;
             String risultato = null;
             Double puntata = null;
-            boolean stringheCorrette = true;
-            boolean numeroCorretto = true;
+            try {
+                puntata = Double.parseDouble(jtfPuntata.getText());
+            } catch (Exception ignored) {
+                jlbAlert.setForeground(Color.red);
+                jlbAlert.setText("La puntata dev'essere un valore numerico!");
+            }
 
             ArrayList<String> campi = new ArrayList<>(); // aggiungo all'arrayList per controllare in un for
             campi.add(jtfDataScommessa.getText());
@@ -182,21 +227,10 @@ public class InputFrame extends JFrame {
             campi.add(jtfSquadraUno.getText());
             campi.add(jtfSquadraDue.getText());
 
-            try {
-                if (Double.parseDouble(jtfPuntata.getText()) >= 1) {
-                    puntata = Double.parseDouble(jtfPuntata.getText());
-                    numeroCorretto = true;
-
-                } else {
-                    jlbAlert.setText("LA PUNTATA MINIMA è DI 1€");
-                    numeroCorretto = false;
-                }
-            } catch (Exception ignored) {
-                numeroCorretto = false; // modifico il flag
-            }
-
-            stringheCorrette = controllaStringhe(campi);
-
+            // utilizzo i metodi per controllare se gli input sono validi
+            boolean stringheCorrette = controllaStringhe(campi);
+            boolean numeroCorretto = controllaPuntata(puntata);
+            String disciplina = null;
             if (stringheCorrette && numeroCorretto) {
                 jlbAlert.setText("");
                 data = jtfDataScommessa.getText();
@@ -207,9 +241,10 @@ public class InputFrame extends JFrame {
                 jlbAlert.setText("Scommessa effettuata con successo");
 
                 if (jComboBoxSport.getSelectedItem() == "Calcio")
-                    cliente.AggiungiScommessaCalcioBasket("Calcio", data, puntata, squadraUno, squadraDue, risultato);
+                    disciplina = "Calcio";
                 else if (jComboBoxSport.getSelectedItem() == "Basket")
-                    cliente.AggiungiScommessaCalcioBasket("Basket", data, puntata, squadraUno, squadraDue, risultato);
+                    disciplina = "Basket";
+                cliente.aggiungiScommessaCalcioBasket(disciplina, data, puntata, squadraUno, squadraDue, risultato);
 
             } else if (!stringheCorrette && numeroCorretto) {
                 jlbAlert.setText("ALCUNI CAMPI SONO VUOTI");
@@ -224,8 +259,6 @@ public class InputFrame extends JFrame {
         }
     }
 
-    
-
     /**
      * Ascoltatore che effettua la scommessa per il nuoto prendendo i parametri
      * dei JTextField
@@ -234,34 +267,27 @@ public class InputFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             String data;
-            Double puntata = null;
             String stile;
             Double distanza = null;
             String nomeVincitore;
 
-            boolean stringheCorrette = true;
-            boolean puntantaCorretta = true;
-            boolean distanzaCorretta = true;
+            Double puntata = null;
+            try {
+                puntata = Double.parseDouble(jtfPuntata.getText());
+            } catch (Exception ignored) {
+                jlbAlert.setForeground(Color.red);
+                jlbAlert.setText("La puntata dev'essere un valore numerico!");
+            }
+            boolean puntataCorretta = controllaPuntata(puntata); // controllo della puntata
 
             ArrayList<String> campi = new ArrayList<>();
             campi.add(jtfDataScommessa.getText());
             campi.add(jtfPuntata.getText());
-            stringheCorrette = controllaStringhe(campi); // true false
 
-            try { // puntata
-                if (Double.parseDouble(jtfPuntata.getText()) >= 1) {
-                    puntata = Double.parseDouble(jtfPuntata.getText());
-                    puntantaCorretta = true;
+            boolean stringheCorrette = controllaStringhe(campi); // controllo delle stringhe
+            boolean distanzaCorretta = true;
 
-                } else {
-                    jlbAlert.setText("LA PUNTATA MINIMA è DI 1€");
-                    puntantaCorretta = false;
-                }
-            } catch (Exception ignored) {
-                puntantaCorretta = false; // modifico il flag
-            }
-
-            try { // distanza (m)
+            try {// controllo della distanza
                 if (Double.parseDouble(jtfDistanza.getText()) >= 50
                         && Double.parseDouble(jtfDistanza.getText()) <= 1500) {
                     puntata = Double.parseDouble(jtfPuntata.getText());
@@ -280,19 +306,65 @@ public class InputFrame extends JFrame {
             }
 
             // se e' tutto giusto effettua la scommessa
-            if (stringheCorrette && distanzaCorretta && puntantaCorretta) {
+            if (stringheCorrette && distanzaCorretta && puntataCorretta) {
                 jlbAlert.setText(""); // svuoto la label di errore
                 data = jtfDataScommessa.getText();
                 stile = (String) jcbStili.getSelectedItem();
                 nomeVincitore = (String) jcbAteltiNuoto.getSelectedItem();
                 jlbAlert.setForeground(Color.black);
                 jlbAlert.setText("Scommessa effettuata con successo");
-                cliente.AggiungiScommessaNuoto(data, puntata, stile, distanza, nomeVincitore);
+                cliente.aggiungiScommessaNuoto(data, puntata, stile, distanza, nomeVincitore);
 
-            } else if (!stringheCorrette && distanzaCorretta && puntantaCorretta) {
+            } else if (!stringheCorrette && distanzaCorretta && puntataCorretta) {
                 jlbAlert.setText("ALCUNI CAMPI SONO VUOTI");
                 jlbAlert.setForeground(Color.RED);
-            } else if (!distanzaCorretta && !stringheCorrette && !puntantaCorretta) {
+            } else if (!distanzaCorretta && !stringheCorrette && !puntataCorretta) {
+                jlbAlert.setText("CORREGGERE I CAMPI");
+                jlbAlert.setForeground(Color.RED);
+            }
+        }
+    }
+
+    /**
+     * Ascoltatore dell'atletica
+     */
+    class AscoltaAtletica implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String data;
+            String specialita;
+            String nomeVincitore;
+            Double puntata = null;
+            try {
+                puntata = Double.parseDouble(jtfPuntata.getText());
+            } catch (Exception ignored) {
+                jlbAlert.setForeground(Color.red);
+                jlbAlert.setText("La puntata dev'essere un valore numerico!");
+            }
+
+            ArrayList<String> campi = new ArrayList<>();
+            campi.add(jtfDataScommessa.getText());
+            campi.add(jtfPuntata.getText());
+
+            boolean stringheCorrette = controllaStringhe(campi);
+            boolean puntantaCorretta = controllaPuntata(puntata);
+
+            if (stringheCorrette && puntantaCorretta) {
+                jlbAlert.setText("");
+                data = jtfDataScommessa.getText();
+                specialita = (String) jcbStili.getSelectedItem();
+                nomeVincitore = (String) jcbAtletiAtletica.getSelectedItem();
+                jlbAlert.setForeground(Color.black);
+                jlbAlert.setText("Scommessa effettuata con successo");
+                cliente.aggiungiScommessaAtletica(data, puntata, specialita, nomeVincitore);
+
+            } else if (!stringheCorrette && puntantaCorretta) {
+                jlbAlert.setText("ALCUNI CAMPI SONO VUOTI");
+                jlbAlert.setForeground(Color.RED);
+            } else if (!puntantaCorretta && stringheCorrette) {
+                jlbAlert.setText("LA PUNTATA MINIMA è DI 1€");
+                jlbAlert.setForeground(Color.RED);
+            } else if (!puntantaCorretta && !stringheCorrette) {
                 jlbAlert.setText("CORREGGERE I CAMPI");
                 jlbAlert.setForeground(Color.RED);
             }

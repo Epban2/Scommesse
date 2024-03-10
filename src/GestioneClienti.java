@@ -36,11 +36,11 @@ public class GestioneClienti {
      * @return
      */
     public String[] ritornaProfili() {
-        String[] nomiClienti = new String[4];
+        String[] nomiClienti = new String[4]; //array di stringhe
         String str = "";
         int count = 0;
         for (Cliente cliente : clienti) {
-            str = cliente.getNome() + " " + cliente.getCognome();
+            str = cliente.ritornaNomeCompleto();
             nomiClienti[count] = str;
             count++;
         }

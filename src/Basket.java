@@ -15,7 +15,7 @@ public class Basket extends Scommessa {
         this.squadraUno = squadraUno;
         this.squadraDue = squadraDue;
         this.risultatoPrevisto = risultatoPrevisto;
-        EffettuaScommessa();
+        effettuaScommessa();
     }
 
     public String getSquadraUno() {
@@ -54,7 +54,7 @@ public class Basket extends Scommessa {
      * Effettua la scommessa e calcola il risultato se vinto
      */
     @Override
-    public void EffettuaScommessa() {
+    public void effettuaScommessa() {
         int risultatoSquadraUno = ThreadLocalRandom.current().nextInt(0, 4 + 1);
         int risultatoSquadraDue = ThreadLocalRandom.current().nextInt(0, 4 + 1);
         if (risultatoPrevisto.equals("1") && risultatoSquadraUno > risultatoSquadraDue) {

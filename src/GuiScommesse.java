@@ -173,11 +173,7 @@ public class GuiScommesse extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             Cliente cliente = ritornaCliente();
-            Double totalePuntate = 0.0;
-            for (Scommessa scommessa : cliente.listaScommesse) {
-                totalePuntate += scommessa.puntata;
-            }
-            jlbTestoCentrale.setText("Puntate totali= " + Double.toString(totalePuntate) + "$");
+            jlbTestoCentrale.setText("Puntate totali= " + cliente.ritornaPuntataTotale() + "$");
         }
     }
 

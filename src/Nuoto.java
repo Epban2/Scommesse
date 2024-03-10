@@ -16,7 +16,7 @@ public class Nuoto extends Scommessa {
         this.stile = stile;
         this.distanza = distanza;
         this.nomeVincitore = nomeVincitore;
-        EffettuaScommessa();
+        effettuaScommessa();
     }
 
     public String getStile() {
@@ -44,7 +44,7 @@ public class Nuoto extends Scommessa {
      * Effettua la scommessa e calcola la vincita
      */
     @Override
-    public void EffettuaScommessa() {
+    public void effettuaScommessa() {
         // genero casualmente l'indice del vincitore (locazione dell'array)
         int indexVinvitore = ThreadLocalRandom.current().nextInt(0, 6 + 1);
         if (nomeVincitore.equals(atletiNuoto[indexVinvitore])) {

@@ -74,6 +74,6 @@ public abstract class Scommessa {
     }
 
     // metodo astratto
-    public abstract void EffettuaScommessa();
+    public abstract void effettuaScommessa();
 
 }

@@ -12,6 +12,7 @@ public class Atletica extends Scommessa {
         super(data, puntata);
         this.specialita = specialita;
         this.nomeVincitore = nomeVincitore;
+        effettuaScommessa();
     }
 
     public String getSpecialita() {
@@ -41,7 +42,7 @@ public class Atletica extends Scommessa {
      * Effettua la scommessa e calcola la vincita
      */
     @Override
-    public void EffettuaScommessa() {
+    public void effettuaScommessa() {
         int indexVinvitore = ThreadLocalRandom.current().nextInt(0, 4 + 1);
         if (nomeVincitore.equals(listaAtleti[indexVinvitore])) {
             setVincita(quota * puntata);

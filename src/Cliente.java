@@ -105,12 +105,11 @@ public class Cliente {
     }
 
     /**
-     * Aggiorna la puntata totale sommando tutte le singole
+     * Ritorna la somma di tutte le singole puntate
+     * @return
      */
-    public void calcolaPuntataTotale() {
-        double somma = 0;
-        somma = puntataCalcio + puntataBasket + puntataNuoto + puntataCiclismo + puntataAtletica;
-        setPuntataTotale(somma);
+    public Double ritornaPuntataTotale() {
+        return puntataTotale;
     }
 
     /**
@@ -133,7 +132,7 @@ public class Cliente {
      * @param squadraDue
      * @param risultatoPrevisto
      */
-    public void AggiungiScommessaCalcioBasket(String tipoScommessa, String data, double puntataCliente,
+    public void aggiungiScommessaCalcioBasket(String tipoScommessa, String data, double puntataCliente,
             String squadraUno,
             String squadraDue,
             String risultatoPrevisto) {
@@ -145,6 +144,8 @@ public class Cliente {
 
         listaScommesse.add(scommessa);
         setScommesseEffettuate(scommesseEffettuate + 1);
+        setPuntataTotale(puntataTotale + puntataCliente);
+        setPuntataCalcio(puntataCalcio + puntataCliente);
     }
 
     /**
@@ -156,11 +157,30 @@ public class Cliente {
      * @param distanza
      * @param nomeVincitore
      */
-    public void AggiungiScommessaNuoto(String data, double puntataCliente, String stile, Double distanza,
+    public void aggiungiScommessaNuoto(String data, double puntataCliente, String stile, Double distanza,
             String nomeVincitore) {
         Scommessa scommessa = new Nuoto(data, puntataCliente, stile, distanza, nomeVincitore);
         listaScommesse.add(scommessa);
         setScommesseEffettuate(scommesseEffettuate + 1);
+        setPuntataTotale(puntataTotale + puntataCliente);
+        setPuntataNuoto(puntataNuoto + puntataCliente);
+    }
+
+    /**
+     * Con i parametri dei JTF crea una scommessa di tipo Nuoto
+     * 
+     * @param data
+     * @param puntataCliente
+     * @param stile
+     * @param distanza
+     * @param nomeVincitore
+     */
+    public void aggiungiScommessaAtletica(String data, double puntata, String specialita, String nomeVincitore) {
+        Scommessa scommessa = new Atletica(data, puntata, specialita, nomeVincitore);
+        listaScommesse.add(scommessa);
+        setScommesseEffettuate(scommesseEffettuate + 1);
+        setPuntataTotale(puntataTotale + puntata);
+        setPuntataAtletica(puntataAtletica + puntata);
     }
 
     /**

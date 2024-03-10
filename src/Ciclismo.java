@@ -35,7 +35,7 @@ public class Ciclismo extends Scommessa {
      * Effettua la scommessa e calcola la vincita
      */
     @Override
-    public void EffettuaScommessa() {
+    public void effettuaScommessa() {
         int indexVinvitore = ThreadLocalRandom.current().nextInt(0, 4 + 1);
         if (nomeVincitore.equals(listaAtleti[indexVinvitore])) { //TODO: METTERE A POSTO CON IL FATTO DEI VINCITORI IN ORDINE
             setVincita(quota * puntata);
