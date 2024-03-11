@@ -240,7 +240,6 @@ public class GuiScommesse extends JFrame {
             // Rimuovi tutti i componenti dal pannello centrale
             jpCentrale.removeAll();
 
-            
             // Costruisci il testo da mostrare nel pannello centrale
             jlbTestoCentrale.setText(gestioneClienti.ritornaScommesseTotaliPerTipologia());
             jlbTestoCentrale.setFont(new Font("Futura", Font.BOLD, 18));

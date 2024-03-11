@@ -63,6 +63,7 @@ public class GestioneClienti {
             valori[4] += cliente.getScommesseNuoto();
         }
 
+        
         String text = "<html>"
                     + "Scommesse calcio: " + valori[0] + "<br>"
                     + "Scommesse basket: " + valori[1] + "<br>"

@@ -163,7 +163,7 @@ public class InputFrame extends JFrame {
 
         jpInput.add(new JLabel("Scegliere risultato: "));
         String[] risultati = { "1", "x", "2" };
-        jcbRisultati = new JComboBox(risultati);
+        jcbRisultati = new JComboBox<>(risultati);
         jpInput.add(jcbRisultati);
     }
 
@@ -173,7 +173,7 @@ public class InputFrame extends JFrame {
     public void scommessaNuoto() {
         jpInput.add(new JLabel("Stile: "));
         String[] stili = { "Libero", "Dorso", "Rana", "Farfalla" };
-        jcbStili = new JComboBox(stili);
+        jcbStili = new JComboBox<>(stili);
         jpInput.add(jcbStili);
 
         jpInput.add(new JLabel("Distana (m): "));
@@ -183,7 +183,7 @@ public class InputFrame extends JFrame {
         jpInput.add(new JLabel("Vincitore: "));
         String[] atletiNuoto = { "Tom Dean", "Carson Foster", "Pan Zhanle", "Ryan Murphy", " Maxime Grousset",
                 "Bobby Finke", "Sam Short" };
-        jcbAteltiNuoto = new JComboBox(atletiNuoto);
+        jcbAteltiNuoto = new JComboBox<>(atletiNuoto);
         jpInput.add(jcbAteltiNuoto);
 
     }
@@ -194,12 +194,12 @@ public class InputFrame extends JFrame {
     public void scommessaAtletica() {
         jpInput.add(new JLabel("Specialita': "));
         String[] specialita = { "Staffette", "Mezzofondo", "Ostacoli", "Lanci", "Marcia" };
-        jcbStili = new JComboBox(specialita);
+        jcbStili = new JComboBox<>(specialita);
         jpInput.add(jcbStili);
 
         jpInput.add(new JLabel("Vincitore: "));
         String[] atletiAtletica = { "Ignazio", "Filippo", "Marcello", "Fabrizio", "Pietro" };
-        jcbAtletiAtletica = new JComboBox(atletiAtletica);
+        jcbAtletiAtletica = new JComboBox<>(atletiAtletica);
         jpInput.add(jcbAtletiAtletica);
     }
 
