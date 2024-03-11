@@ -48,7 +48,9 @@ public class GestioneClienti {
     }
 
     /**
-     * Ritorna un stringa contentente tutte le puntate per ogni disciplina (sommando le singole di tutte i clienti) 
+     * Ritorna un stringa contentente tutte le puntate per ogni disciplina (sommando
+     * le singole di tutte i clienti)
+     * 
      * @return
      */
     public String ritornaScommesseTotaliPerTipologia() {
@@ -63,16 +65,14 @@ public class GestioneClienti {
             valori[4] += cliente.getScommesseNuoto();
         }
 
-        
         String text = "<html>"
-                    + "Scommesse calcio: " + valori[0] + "<br>"
-                    + "Scommesse basket: " + valori[1] + "<br>"
-                    + "Scommesse atletica: " + valori[2] + "<br>"
-                    + "Scommesse nuoto: " + valori[3] + "<br>"
-                    + "Scommesse ciclismo: " + valori[4] + "<br>"
-                    + "</html>";
+                + "Scommesse calcio: " + valori[0] + "<br>"
+                + "Scommesse basket: " + valori[1] + "<br>"
+                + "Scommesse atletica: " + valori[2] + "<br>"
+                + "Scommesse nuoto: " + valori[3] + "<br>"
+                + "Scommesse ciclismo: " + valori[4] + "<br>"
+                + "</html>";
 
         return text;
     }
-
 }

@@ -174,6 +174,23 @@ public class Cliente {
     }
 
     /**
+     * Ritorna una stringa con tutte le puntate
+     * 
+     * @return
+     */
+    public String riepilogoScommesse() {
+        String text = "<html>"
+                + "Puntate totali: " + puntataTotale + "<br>"
+                + "Puntate calcio: " + puntataCalcio + "<br>"
+                + "Puntate basket: " + puntataBasket + "<br>"
+                + "Puntate atletica: " + puntataAtletica + "<br>"
+                + "Puntate nuoto: " + puntataNuoto + "<br>"
+                + "Puntate ciclismo: " + puntataCiclismo + "<br>"
+                + "</html>";
+        return text;
+    }
+
+    /**
      * Crea una nuova scommessa di calcio/basket a seconda del tipo (Stringa
      * contentente lo sport)
      * 
